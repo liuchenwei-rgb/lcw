@@ -1,10 +1,15 @@
 # 实验三（3.1）：LeNet-5 网络的构建
-一、实验目的
+
+## 一、实验目的
+
+
 学会利用 PyTorch 设计 LeNet-5 网络结构，定义数据加载器、损失函数和优化器，构建完整的训练流程。以 MNIST 数据集为对象，利用 PyTorch 进行 LeNet-5 模型设计、数据加载、损失函数及优化器定义，评估模型的性能。
 
-# 二、实验内容
+## **二、实验内容**
+
 2.1 导入所需的依赖包
 
+```python
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -12,30 +17,36 @@ import torch.optim as optim
 import matplotlib.pyplot as plt
 from torchvision import datasets,transforms
 from torch.utils.data import DataLoader
+```
+
 2.2 导入训练数据
 
-设置批处理大小
+```python
+# 设置批处理大小
 batch_size = 512
 
-
+# 检查CUDA设备是否可用，并设置为设备
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-定义数据的转换方式，这里仅将数据转换为tensor
+# 定义数据的转换方式，这里仅将数据转换为tensor
 transform = transforms.Compose([transforms.ToTensor()])
 
-加载训练集
+# 加载训练集
 train_loader = DataLoader(
     datasets.MNIST('data', train=True, download=True, transform=transform),
     batch_size=batch_size, shuffle=True
 )
 
-加载测试集
+# 加载测试集
 test_loader = DataLoader(
     datasets.MNIST('data', train=False, download=True, transform=transform),
     batch_size=batch_size, shuffle=True
 )
+```
+
 2.3 定义模型
 
+```python
 class ConvNet(nn.Module):
     def __init__(self):
         super(ConvNet, self).__init__()
@@ -67,20 +78,31 @@ class ConvNet(nn.Module):
         
         x = self.clf(x)
         return x
+```
+
 2.4 进行模型初始化
 
+```python
 model = ConvNet().to(device)
 optimizer = optim.AdamW(model.parameters(),lr = 1e-2)
 model
-ConvNet(
-  (conv1): Conv2d(1, 6, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
-  (conv2): Conv2d(6, 16, kernel_size=(5, 5), stride=(1, 1))
-  (fc1): Linear(in_features=400, out_features=120, bias=True)
-  (fc2): Linear(in_features=120, out_features=84, bias=True)
-  (clf): Linear(in_features=84, out_features=10, bias=True)
-)
+```
+
+
+
+
+    ConvNet(
+      (conv1): Conv2d(1, 6, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+      (conv2): Conv2d(6, 16, kernel_size=(5, 5), stride=(1, 1))
+      (fc1): Linear(in_features=400, out_features=120, bias=True)
+      (fc2): Linear(in_features=120, out_features=84, bias=True)
+      (clf): Linear(in_features=84, out_features=10, bias=True)
+    )
+
+
 2.5 对模型进行训练
 
+```python
 epochs = 30
 accs, losses = [], []
 
@@ -116,38 +138,44 @@ for epoch in range(epochs):
 
     # 打印每个epoch的结果
     print('epoch: {}, loss: {:.4f}, acc: {:.4f}'.format(epoch, testloss, acc))
-epoch: 0, loss: 2.3015, acc: 0.1135
-epoch: 1, loss: 2.3017, acc: 0.1135
-epoch: 2, loss: 2.3010, acc: 0.1135
-epoch: 3, loss: 1.4345, acc: 0.4455
-epoch: 4, loss: 0.3515, acc: 0.8787
-epoch: 5, loss: 0.1555, acc: 0.9511
-epoch: 6, loss: 0.0917, acc: 0.9704
-epoch: 7, loss: 0.0812, acc: 0.9759
-epoch: 8, loss: 0.0717, acc: 0.9761
-epoch: 9, loss: 0.0583, acc: 0.9806
-epoch: 10, loss: 0.0600, acc: 0.9812
-epoch: 11, loss: 0.0550, acc: 0.9819
-epoch: 12, loss: 0.0522, acc: 0.9828
-epoch: 13, loss: 0.0510, acc: 0.9840
-epoch: 14, loss: 0.0498, acc: 0.9845
-epoch: 15, loss: 0.0459, acc: 0.9853
-epoch: 16, loss: 0.0496, acc: 0.9841
-epoch: 17, loss: 0.0431, acc: 0.9858
-epoch: 18, loss: 0.0402, acc: 0.9885
-epoch: 19, loss: 0.0390, acc: 0.9873
-epoch: 20, loss: 0.0412, acc: 0.9871
-epoch: 21, loss: 0.0419, acc: 0.9858
-epoch: 22, loss: 0.0529, acc: 0.9853
-epoch: 23, loss: 0.0424, acc: 0.9868
-epoch: 24, loss: 0.0454, acc: 0.9858
-epoch: 25, loss: 0.0395, acc: 0.9877
-epoch: 26, loss: 0.0418, acc: 0.9883
-epoch: 27, loss: 0.0424, acc: 0.9872
-epoch: 28, loss: 0.0391, acc: 0.9877
-epoch: 29, loss: 0.0380, acc: 0.9879
+```
+
+    epoch: 0, loss: 2.3015, acc: 0.1135
+    epoch: 1, loss: 2.3017, acc: 0.1135
+    epoch: 2, loss: 2.3010, acc: 0.1135
+    epoch: 3, loss: 1.4345, acc: 0.4455
+    epoch: 4, loss: 0.3515, acc: 0.8787
+    epoch: 5, loss: 0.1555, acc: 0.9511
+    epoch: 6, loss: 0.0917, acc: 0.9704
+    epoch: 7, loss: 0.0812, acc: 0.9759
+    epoch: 8, loss: 0.0717, acc: 0.9761
+    epoch: 9, loss: 0.0583, acc: 0.9806
+    epoch: 10, loss: 0.0600, acc: 0.9812
+    epoch: 11, loss: 0.0550, acc: 0.9819
+    epoch: 12, loss: 0.0522, acc: 0.9828
+    epoch: 13, loss: 0.0510, acc: 0.9840
+    epoch: 14, loss: 0.0498, acc: 0.9845
+    epoch: 15, loss: 0.0459, acc: 0.9853
+    epoch: 16, loss: 0.0496, acc: 0.9841
+    epoch: 17, loss: 0.0431, acc: 0.9858
+    epoch: 18, loss: 0.0402, acc: 0.9885
+    epoch: 19, loss: 0.0390, acc: 0.9873
+    epoch: 20, loss: 0.0412, acc: 0.9871
+    epoch: 21, loss: 0.0419, acc: 0.9858
+    epoch: 22, loss: 0.0529, acc: 0.9853
+    epoch: 23, loss: 0.0424, acc: 0.9868
+    epoch: 24, loss: 0.0454, acc: 0.9858
+    epoch: 25, loss: 0.0395, acc: 0.9877
+    epoch: 26, loss: 0.0418, acc: 0.9883
+    epoch: 27, loss: 0.0424, acc: 0.9872
+    epoch: 28, loss: 0.0391, acc: 0.9877
+    epoch: 29, loss: 0.0380, acc: 0.9879
+
+
 2.6 acc与loss变化趋势展示
 
+
+```python
 plt.figure(figsize=(10, 5))
 plt.subplot(1, 2, 1)  # 一行两列，第一个子图
 plt.plot(accs, label='Accuracy', color='blue')
@@ -165,12 +193,18 @@ plt.legend()
 
 plt.tight_layout() 
 plt.show()
-​
-png​
+```
+
+
+​    
+![png](experiment3_files/experiment3_5_0.png)
+​    
 
 2.7 特征图可视化
 
-获取模型的卷积层的特征图
+
+```python
+# 获取模型的卷积层的特征图
 feature1 = model.conv1(x)
 feature2 = model.conv2(feature1)
 n = 5  
@@ -189,10 +223,13 @@ for i in range(n):
     ax[2, i].imshow(feature_map2[i].sum(0), cmap='gray')
     ax[2, i].set_title(f'Feature Map 2.{i+1}')
 
-调整子图间距
+# 调整子图间距
 plt.tight_layout()
 plt.show()
-png​
+```
+
+
+![png](experiment3_files/experiment3_6_0.png)
 
 # 三、实验小结
 ​本次实验基于PyTorch框架，成功设计并实现了经典的LeNet-5卷积神经网络，并在MNIST手写数字数据集上完成了模型的训练与评估。
