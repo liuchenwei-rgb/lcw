@@ -197,7 +197,8 @@ plt.show()
 
 
 ​    
-![png](experiment3_files/experiment3_5_0.png)
+<img width="989" height="490" alt="image" src="https://github.com/user-attachments/assets/aba103ad-56fc-491b-a9c8-e8ea4b859e1f" />
+
 ​    
 
 2.7 特征图可视化
@@ -229,7 +230,8 @@ plt.show()
 ```
 
 
-![png](experiment3_files/experiment3_6_0.png)
+<img width="989" height="846" alt="image" src="https://github.com/user-attachments/assets/13defc46-5c76-4c73-ae23-78a7f52aa484" />
+
 
 # 三、实验小结
 ​本次实验基于PyTorch框架，成功设计并实现了经典的LeNet-5卷积神经网络，并在MNIST手写数字数据集上完成了模型的训练与评估。
