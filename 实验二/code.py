@@ -150,7 +150,3 @@ if len(gray_img.shape) == 2:
 
 print("图像处理流程完成！")
 
-# 可选：保存处理结果
-# cv2.imwrite("rgb_image.jpg", cv2.cvtColor(rgb_img, cv2.COLOR_RGB2BGR))
-# cv2.imwrite("gray_image.jpg", gray_img)
-# cv2.imwrite("median_filtered.jpg", custom_mid_3)
