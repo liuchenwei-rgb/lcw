@@ -39,3 +39,7 @@ matplotlib（用于可视化）
 <img width="781" height="821" alt="image" src="https://github.com/user-attachments/assets/7ab697fc-a146-411b-9167-4e89bf05a6d1" />
 
 ## 五、实验结果
+
+<img width="1200" height="400" alt="50de9967ab218f23362b2b41964a320b" src="https://github.com/user-attachments/assets/a418ca7a-65b4-4d2f-867a-736930ab0e85" />
+
+## 六、实验总结
